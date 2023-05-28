@@ -1,5 +1,8 @@
 package com.example.sitefilmes.service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,22 +25,33 @@ public class FilmeService {
     }
 
     public List<Filme> findAll(){
-        return repository.findAll();
+        return repository.findAllNotDeleted();
     }
+    
 
     public Optional<Filme> findById(long id){
-        return repository.findById(id);
+        return repository.findByIdNotDeleted(id);
     }
 
     public void delete(long id){
         Optional<Filme> filme = this.findById(id);
         if(filme.isPresent()){
-            repository.deleteById(null);
+            LocalDate currentDate = LocalDate.now();
+            Date currentDateTime = Date.from(currentDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            Filme f = filme.get();
+            f.setDeleted(currentDateTime);
+            save(f);
+
         }
         else{
             throw new RuntimeException("Filme não encontrado"); 
         }
     }
+
+
+    
+
+
 
 
 }

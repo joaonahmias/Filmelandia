@@ -29,7 +29,6 @@ public class UploadUtil {
                 System.out.println("armazenado em: "+ serverFile.getAbsolutePath());
                 System.out.println("Nome do Arquivo: "+ nomeArquivo);
                 sucessoUpload = true;
-
             }catch(Exception e){
                 System.out.println("Voce falhou em carregar o arquivo");
             }
