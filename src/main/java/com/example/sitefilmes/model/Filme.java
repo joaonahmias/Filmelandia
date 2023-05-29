@@ -1,5 +1,8 @@
 package com.example.sitefilmes.model;
 import java.util.Date;
+
+import org.hibernate.validator.constraints.URL;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,13 +22,19 @@ public class Filme {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     long id;
     @NotBlank
+    @Size(max = 100)
     String titulo;
     String anoLancamento;
+    @NotBlank
     String genero;
+    @NotBlank
     String direcao;
     String elenco;
     @NotBlank
+    @Size(max = 500)
     String descricao;
+    @Min(value = 0, message = "O preço não pode ser negativo")
+    long preco;
     Date deleted;
     String imgUri;
    

@@ -9,25 +9,40 @@
 <body>
     <h1>Cadastro de Filmes</h1>
     <form method = "post" th:action = "@{/doSalvar}" th:object="${filme}" enctype="multipart/form-data" >
+        
+        <input type="hidden" name="acao" th:value="${acao}" />
+
         Título: <input type="text" th:field="*{titulo}">
+        <p th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></p>
         <br />
     
         Ano: <input type="text" th:field="*{anoLancamento}">
         <br />
     
         Gênero: <input type="text" th:field="*{genero}">
+        <p th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"></p>
         <br />
     
         Direção: <input type="text" th:field="*{direcao}">
+        <p th:if="${#fields.hasErrors('direcao')}" th:errors="*{direcao}"></p>
+        
         <br />
 
        Elenco: <input type="text" th:field="*{elenco}">
         <br />
 
        Descrição: <input type="text" th:field="*{descricao}">
+       <p th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></p>
         <br />
         
+        
+       Preço: <input type="text" th:field="*{preco}">
+       <p th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}"></p>
+
+       <br />
+
         Imagem: <input type="file" name = "file" >
+        <p th:if="${#fields.hasErrors('imgUri')}" th:errors="*{imgUri}"></p>
         <br />
 
 

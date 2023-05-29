@@ -8,17 +8,36 @@
 </head>
 <body>
     <h1> Página de Edição</h1>
-    <form method="post" th:action="@{/doEditar}" th:object="${filme}" enctype="multipart/form-data">
-    <input type="hidden" th:field="*{id}">
-    Titulo: <input type="text" th:field="*{titulo}"> <br />
-    Ano: <input type="text" th:field="*{anoLancamento}"> <br />
-    Gênero: <input type="text" th:field="*{genero}"> <br/>
-    Direção: <input type="text" th:field="*{direcao}"> <br />
-    Elenco: <input type="text" th:field="*{elenco}"> <br />
-    Descrição : <input type="text" th:field="*{descricao}"> <br />
-    Imagem: <input type="file" name = "file" >
-    <input type="hidden" th:field="*{imgUri}"> <br />
-    <button type="submit">Salvar</button>
+    <form method="post" th:action="@{/doSalvar}" th:object="${filme}" enctype="multipart/form-data">
+       
+        <input type="hidden" name="acao" th:value="${acao}" />
+        <input type="hidden" th:field="*{id}">
+
+
+        Titulo: <input type="text" th:field="*{titulo}"> <br />
+        <p th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></p>
+
+        Ano: <input type="text" th:field="*{anoLancamento}"> <br />
+
+        Gênero: <input type="text" th:field="*{genero}"> <br/>
+        <p th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"></p>
+
+        Direção: <input type="text" th:field="*{direcao}"> <br />
+        <p th:if="${#fields.hasErrors('direcao')}" th:errors="*{direcao}"></p>
+
+        Elenco: <input type="text" th:field="*{elenco}"> <br />
+
+        Descrição : <input type="text" th:field="*{descricao}"> <br />
+        <p th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></p>
+
+        Preço: <input type="text" th:field="*{preco}">
+        <p th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}"></p>
+
+        Imagem: <input type="file" name = "file" >
+        <p th:if="${#fields.hasErrors('imgUri')}" th:errors="*{imgUri}"></p>
+
+        <input type="hidden" th:field="*{imgUri}"> <br />
+        <button type="submit">Salvar</button>
 </form>
 </body>
 </html>

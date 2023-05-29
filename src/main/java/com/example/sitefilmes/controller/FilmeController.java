@@ -39,18 +39,22 @@ public class FilmeController {
         return "index";
     }
 
-    @GetMapping(value = "/cadastrarPage")
+    @GetMapping(value = "/cadastrarPagina")
     public String cadastrarPage(Model model){
         Filme filme = new Filme();
         model.addAttribute("filme", filme);
+        model.addAttribute("acao", "cadastrar");
         return "cadastrarFilme";
     }
 
     @PostMapping(value = "/doSalvar")
-    public String cadastrar(@ModelAttribute @Valid Filme filme, @RequestParam("file") MultipartFile imagem, Errors errors){
+    public String cadastrar(@ModelAttribute @Valid Filme filme, Errors errors, @RequestParam("file") MultipartFile imagem, @RequestParam(value = "acao", required = false) String acao){
         if (errors.hasErrors()){
-            System.out.println("erro: "+errors.getAllErrors());
-            return "cadastrarPage";
+            if ("editar".equals(acao)) {
+                return "editarFilme";
+            } else {
+                return "cadastrarFilme";
+            }
         }else{
             try{
                 if(UploadUtil.fazerUploadImagem(imagem)){
@@ -58,29 +62,23 @@ public class FilmeController {
                     service.save(filme);
                     return "redirect:/index";
                 }
-            }catch(Exception e){
-                return "redirect:/index";
-            }
-            return "redirect:/index";
-        }
-    }
-
-    @PostMapping(value = "/doEditar")
-    public String editar(@ModelAttribute @Valid Filme filme, @RequestParam("file") MultipartFile imagem, Errors errors){
-        if (errors.hasErrors()){
-            System.out.println("erro: "+errors.getAllErrors());
-            return "editarPage";
-        }else{
-            try{
-                if(UploadUtil.fazerUploadImagem(imagem)){
-                    filme.setImgUri(imagem.getOriginalFilename());
-                    service.save(filme);
-                    return "redirect:/index";
+                else{
+                    if ("editar".equals(acao)) {
+                        if(imagem.isEmpty()){
+                            service.save(filme);
+                            return "redirect:/index";
+                        }
+                        else{
+                            return "editarFilme";
+                        }
+                    } else {
+                        errors.rejectValue("imgUri", "file.empty", "Por favor, selecione um arquivo do tipo png.");
+                        return "cadastrarFilme";
+                    }
                 }
             }catch(Exception e){
                 return "redirect:/index";
             }
-            return "redirect:/index";
         }
     }
 
@@ -91,6 +89,7 @@ public class FilmeController {
         Optional<Filme> filme = service.findById(id);
         if (filme.isPresent()){
             model.addAttribute("filme", filme.get());
+            model.addAttribute("acao", "editar");
         }else{
             return "redirect:/index";
         }

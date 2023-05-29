@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class UploadUtil {
     public static boolean fazerUploadImagem(MultipartFile imagem){
         boolean sucessoUpload = false;
-        if(!imagem.isEmpty()){
+        if(!imagem.isEmpty()&&imagem.getContentType().equals("image/png")){
             String nomeArquivo = imagem.getOriginalFilename();
             try{
                 //criando diretorio para armazenar arquivo
@@ -35,6 +35,7 @@ public class UploadUtil {
         }
         else{
             System.out.println("Arquivo vazio");
+            
         }
         return sucessoUpload;
     }
