@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Carrinho</title>
+</head>
+<body>
+    <h1>Meu Carrinho</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Ano de Lançamento</th>
+                <th>Gênero</th>
+                <th>Direção</th>
+                <th>Elenco</th>
+                <th>Descrição</th>
+                <th>Imagem</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="filme : ${carrinho}">
+                <td th:text="${filme.titulo}"></td>
+                <td th:text="${filme.anoLancamento}"></td>
+                <td th:text="${filme.genero}"></td>
+                <td th:text="${filme.direcao}"></td>
+                <td th:text="${filme.elenco}"></td>
+                <td th:text="${filme.descricao}"></td>
+                <td><img th:src="@{${filme.imgUri}}"/></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -8,10 +8,9 @@ import java.io.OutputStream;
 import org.springframework.web.multipart.MultipartFile;
 
 public class UploadUtil {
-    public static boolean fazerUploadImagem(MultipartFile imagem){
+    public static boolean fazerUploadImagem(MultipartFile imagem,String nomeArquivo){
         boolean sucessoUpload = false;
         if(!imagem.isEmpty()&&imagem.getContentType().equals("image/png")){
-            String nomeArquivo = imagem.getOriginalFilename();
             try{
                 //criando diretorio para armazenar arquivo
                 String pastaUploadImagens = "C:\\Users\\joao-nahmias\\Desktop\\SiteFilmes\\sitefilmes\\src\\main\\resources\\static\\images\\img-uploads";

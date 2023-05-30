@@ -9,6 +9,9 @@
 <body>
     <h1>Menu Principal</h1>
     <h2>Cadastre <a th:href="@{cadastrarPagina}">aqui</a> </h2>
+
+    <p th:text="${mensagem}"></p>
+
     <table>
         <tr th:each="filme: ${filmes}">
             <td th:text="${filme.titulo}"></td>
@@ -20,9 +23,9 @@
             <td><img th:src="@{${filme.imgUri}}"/></td>
             <td><a th:href="@{'editarPage/'+${filme.id}}">Editar</a></td>
             <td><a th:href="@{'doDeletar/'+${filme.id}}">Deletar</a></td>
-    
-    
+            <td><a th:href="@{'adicionarCarrinho/'+${filme.id}}">Adicionar ao carrinho</a></td>
         </tr>
+        
     </table>
 </body>
 </html>
