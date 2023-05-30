@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Menu Principal</h1>
+    <h2>Cadastre <a th:href="@{cadastrarPagina}">aqui</a> </h2>
 
     <p th:text="${mensagem}"></p>
 
@@ -20,9 +21,8 @@
             <td th:text="${filme.elenco}"></td>
             <td th:text="${filme.descricao}"></td>
             <td><img th:src="@{${filme.imgUri}}"/></td>
-            <td><a th:href="@{'adicionarCarrinho/'+${filme.id}}">Adicionar ao carrinho</a></td>
-            <td><a th:href="@{'verCarrinho'}">Ver Carrinho</a></td>
-            <td><a th:href="@{'finalizarCompras'}">Finalizar Compras</a></td>
+            <td><a th:href="@{'editarPage/'+${filme.id}}">Editar</a></td>
+            <td><a th:href="@{'doDeletar/'+${filme.id}}">Deletar</a></td>
         </tr>
         
     </table>

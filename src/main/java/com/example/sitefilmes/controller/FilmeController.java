@@ -32,7 +32,18 @@ public class FilmeController {
         this.service=service;
     }
     
-    @GetMapping(value = {"/", "/index", "/index.html"})
+    @GetMapping(value = {"/admin", "/admin.html"})
+    public String getAdmin(Model model){
+        List<Filme> filmes = service.findAll();
+        for (Filme filme : filmes) {
+            String caminhoImagem = "images/img-uploads/" + filme.getImgUri();
+            filme.setImgUri(caminhoImagem);
+        }
+        model.addAttribute("filmes", filmes);
+        return "admin";
+    }
+
+    @GetMapping(value = {"/","/index", "/index.html"})
     public String getIndex(Model model){
         List<Filme> filmes = service.findAll();
         for (Filme filme : filmes) {
@@ -66,14 +77,14 @@ public class FilmeController {
                     filme.setImgUri(nomeArquivo);
                     service.save(filme);
                     x.addFlashAttribute("mensagem", "Operação Realizada com Sucesso");
-                    return "redirect:/index";
+                    return "redirect:/admin";
                 }
                 else{
                     if ("editar".equals(acao)) {
                         if(imagem.isEmpty()){
                             service.save(filme);
                             x.addFlashAttribute("mensagem", "Operação Realizada com Sucesso");
-                            return "redirect:/index";
+                            return "redirect:/admin";
                         }
                         else{
                             return "editarFilme";
@@ -84,7 +95,7 @@ public class FilmeController {
                     }
                 }
             }catch(Exception e){
-                return "redirect:/index";
+                return "redirect:/admin";
             }
         }
     }
@@ -98,7 +109,7 @@ public class FilmeController {
             model.addAttribute("filme", filme.get());
             model.addAttribute("acao", "editar");
         }else{
-            return "redirect:/index";
+            return "redirect:/admin";
         }
 
         return "editarFilme";
@@ -113,7 +124,7 @@ public class FilmeController {
             x.addFlashAttribute("mensagem", "Operação Realizada com Sucesso");
         }
         
-        return "redirect:/index";
+        return "redirect:/admin";
         
 
     }
