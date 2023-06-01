@@ -10,6 +10,7 @@
     <h1>Menu Principal</h1>
 
     <p th:text="${mensagem}"></p>
+    <p th:text= "${quantidadeItensCarrinho}"> filmes</p>
 
     <table>
         <tr th:each="filme: ${filmes}">
@@ -19,10 +20,9 @@
             <td th:text="${filme.direcao}"></td>
             <td th:text="${filme.elenco}"></td>
             <td th:text="${filme.descricao}"></td>
-            <td><img th:src="@{${filme.imgUri}}"/></td>
+            <td><img th:src="@{${filme.imgUri}}" height="200px" width="200px" /></td>
             <td><a th:href="@{'adicionarCarrinho/'+${filme.id}}">Adicionar ao carrinho</a></td>
             <td><a th:href="@{'verCarrinho'}">Ver Carrinho</a></td>
-            <td><a th:href="@{'finalizarCompras'}">Finalizar Compras</a></td>
         </tr>
         
     </table>

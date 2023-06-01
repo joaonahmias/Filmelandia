@@ -12,36 +12,36 @@
         
         <input type="hidden" name="acao" th:value="${acao}" />
 
-        Título: <input type="text" th:field="*{titulo}">
+        Título: <input type="text" th:field="*{titulo}" required>
         <p th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></p>
         <br />
     
-        Ano: <input type="text" th:field="*{anoLancamento}">
+        Ano: <input type="text" th:field="*{anoLancamento}"required>
         <br />
     
         Gênero: <input type="text" th:field="*{genero}">
-        <p th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"></p>
+        <p th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"required></p>
         <br />
     
         Direção: <input type="text" th:field="*{direcao}">
-        <p th:if="${#fields.hasErrors('direcao')}" th:errors="*{direcao}"></p>
+        <p th:if="${#fields.hasErrors('direcao')}" th:errors="*{direcao}"required></p>
         
         <br />
 
        Elenco: <input type="text" th:field="*{elenco}">
         <br />
 
-       Descrição: <input type="text" th:field="*{descricao}">
+       Descrição: <input type="text" th:field="*{descricao}"required>
        <p th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></p>
         <br />
         
         
-       Preço: <input type="text" th:field="*{preco}">
+       Preço: <input type="text" th:field="*{preco}" required>
        <p th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}"></p>
 
        <br />
 
-        Imagem: <input type="file" name = "file" >
+        Imagem: <input type="file" name = "file" required>
         <p th:if="${#fields.hasErrors('imgUri')}" th:errors="*{imgUri}"></p>
         <br />
 

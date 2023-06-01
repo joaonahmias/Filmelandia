@@ -1,5 +1,7 @@
 package com.example.sitefilmes.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +21,9 @@ import com.example.sitefilmes.model.Filme;
 import com.example.sitefilmes.service.FilmeService;
 import com.example.sitefilmes.util.UploadUtil;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
@@ -44,14 +48,32 @@ public class FilmeController {
     }
 
     @GetMapping(value = {"/","/index", "/index.html"})
-    public String getIndex(Model model){
+    public String getIndex(Model model, HttpServletRequest request, HttpServletResponse response){
         List<Filme> filmes = service.findAll();
         for (Filme filme : filmes) {
             String caminhoImagem = "images/img-uploads/" + filme.getImgUri();
             filme.setImgUri(caminhoImagem);
         }
+        HttpSession sessao = request.getSession(true);
+        ArrayList<Filme> carrinho = (ArrayList<Filme>) sessao.getAttribute("carrinho");
+        int quantidadeItensCarrinho = 0;
+        if(carrinho != null){
+            quantidadeItensCarrinho = carrinho.size();
+        }
+       
+        model.addAttribute("quantidadeItensCarrinho", quantidadeItensCarrinho);
         model.addAttribute("filmes", filmes);
-        return "index";
+        LocalDateTime agora = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String dataHoraAcesso = agora.format(formatter);
+
+        dataHoraAcesso = dataHoraAcesso.replaceAll("\\s+", "");
+
+        Cookie cookie = new Cookie("visita", dataHoraAcesso);
+        cookie.setMaxAge(24 * 60 * 60); 
+        response.addCookie(cookie);
+        //return "index";
+        return "indexFormatado";
     }
 
     @GetMapping(value = "/cadastrarPagina")
@@ -131,7 +153,7 @@ public class FilmeController {
 
 
     @GetMapping("/adicionarCarrinho/{id}")
-    public String adicionarCarrinho(@PathVariable(name = "id") Integer id, HttpServletRequest request){
+    public String adicionarCarrinho(@PathVariable(name = "id") Integer id, HttpServletRequest request, Model model){
         //procurando a sessao
         HttpSession sessao = request.getSession(true);
         ArrayList<Filme> carrinho = (ArrayList<Filme>) sessao.getAttribute("carrinho");
@@ -186,13 +208,6 @@ public class FilmeController {
         
 
     }
-    
-    
-
-    
-
-
-
 
 }
 

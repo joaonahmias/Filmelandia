@@ -29,8 +29,7 @@ public class UsuarioService implements UserDetailsService {
         if (user.isPresent()){
             return user.get();
         }else{
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'loadUserByUsername'");
+            return null;
         }
     }
 
