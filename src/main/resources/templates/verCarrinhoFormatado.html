@@ -24,49 +24,34 @@
         <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{'index'}">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
       </ul>
-      <form class="d-flex" action="verCarrinho" method="get">
-        <button class="btn btn-outline-dark" type="submit">
-          <i class="bi-cart-fill me-1"></i>
-          Carrinho
-          <span class="badge bg-dark text-white ms-1 rounded-pill"><p th:text= "${quantidadeItensCarrinho}"></p>
-          </span>
-        </button>
-      </form>
     </div>
   </div>
 </nav>
 <!-- Header-->
-<header class="bg-dark py-5">
-  <div class="container px-4 px-lg-5 my-5">
-    <div class="text-center text-white">
-      <h1 class="display-4 fw-bolder">Filmelândia</h1>
-      <p class="lead fw-normal text-white-50 mb-0">Viaje pelo mundo cinematográfico e escolha seus favoritos</p>
-    </div>
-  </div>
+<header class="py-5 bg-dark">
+    <div class="container"><h4 class="m-0 text-center text-white">Carrinho de Compras</h4></div>
 </header>
 <!-- Section-->
 <section class="py-5">
   <div class="container px-4 px-lg-5 mt-5">
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-    <div th:each="filme : ${filmes}">
+    <div th:each="filme : ${carrinho}">
       <div class="col mb-5">
         <div class="card h-100">
           <!-- Product image-->
-          <img class="card-img-top" th:src="@{${filme.imgUri}}" alt="..." height="200px" width="200px" />
+          <img class="card-img-top" th:src="@{'images/img-uploads/'+*{filme.imgUri}}" alt="..." height="200px" width="200px" />
           <!-- Product details-->
           <div class="card-body p-4">
             <div class="text-center">
               <h5 class="fw-bolder" th:text="${filme.titulo}"></h5>
               <p>R$<span th:text="${filme.preco}"></span></p>
-              <p><strong>Ano:</strong> <span th:text="${filme.anoLancamento}"></span></p>
-              <p><strong>Elenco:</strong> <span th:text="${filme.elenco}"></span></p>
-              <p><strong>Direção:</strong> <span th:text="${filme.direcao}"></span></p>
-              <p><strong>Descriçao:</strong> <span th:text="${filme.descricao}"></span></p>
+              <!--<td><a th:href="@{'finalizarCompras'}">Finalizar Compras</a></td>-->
+
             </div>
           </div>
           <!-- Product actions-->
           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-        <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{'adicionarCarrinho/'+${filme.id}}">Adiconar ao Carrinho</a></div>
+        <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{'removerCarrinho/'+${filme.id}}">Remover do Carrinho</a></div>
           </div>
         </div>
       </div>

@@ -184,14 +184,42 @@ public class FilmeController {
             return "redirect:/index";
         }
         else{
-            for (Filme filme : carrinho) {
+            /*for (Filme filme : carrinho) {
                 String caminhoImagem = "images/img-uploads/" + filme.getImgUri();
                 filme.setImgUri(caminhoImagem);
-            }
-            return "verCarrinhoPage";
+            }*/
+           /*for (Filme filme : carrinho) {
+                String caminhoImagem = "images/img-uploads/" + filme.getImgUri();
+                filme.setImgUri(caminhoImagem);
+            }*/
+            return "verCarrinhoFormatado";
         }
 
     }
+
+    @GetMapping("/removerCarrinho/{id}")
+    public String removerCarrinho(@PathVariable(name = "id") Integer id, HttpServletRequest request, Model model) {
+    // Procurando a sessão
+    HttpSession sessao = request.getSession();
+    ArrayList<Filme> carrinho = (ArrayList<Filme>) sessao.getAttribute("carrinho");
+
+    if (carrinho != null) {
+        // Procurando o filme pelo ID no carrinho
+        Optional<Filme> filme = carrinho.stream().filter(f -> f.getId() == id).findFirst();
+        if (filme.isPresent()) {
+            // Removendo o filme do carrinho
+            carrinho.remove(filme.get());
+            model.addAttribute("mensagem", "Filme removido do carrinho com sucesso.");
+        } else {
+            model.addAttribute("mensagem", "Filme não encontrado no carrinho.");
+        }
+    } else {
+        model.addAttribute("mensagem", "Carrinho vazio.");
+    }
+
+    return "redirect:/index";
+}
+
     
 
     @GetMapping("/finalizarCompras")

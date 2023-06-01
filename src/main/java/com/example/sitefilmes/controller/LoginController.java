@@ -2,6 +2,7 @@ package com.example.sitefilmes.controller;
 
 import java.util.Optional;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +31,7 @@ public class LoginController {
 
 
     @PostMapping("/validar")
-    public String validarLogin(@ModelAttribute Usuario usuario) {
+    public String validarLogin(@ModelAttribute Usuario usuario,  BCryptPasswordEncoder encoder) {
         var userName = usuario.getUsername();
         var password = usuario.getSenha();
 

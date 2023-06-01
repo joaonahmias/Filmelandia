@@ -14,7 +14,7 @@ public class ConfigSecurity {
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         
-        /*return http
+        return http
                 .authorizeHttpRequests(auth -> {
                     auth.anyRequest().permitAll();
                 })
@@ -23,10 +23,12 @@ public class ConfigSecurity {
                 //.and()
                 .logout( logout -> logout.logoutUrl("/logout"))
                 //.and()
-                .build();*/
+                .build();
 
-                return http
+                /*return http
                 .authorizeHttpRequests(auth -> {
+                    //auth.requestMatchers("/admin/**").hasRole("ADMIN");
+
                     auth.requestMatchers("/admin").hasRole("ADMIN");
                     auth.requestMatchers("/cadastrarPagina").hasRole("ADMIN");
                     auth.requestMatchers("/doSalvar").hasRole("ADMIN");
@@ -36,14 +38,14 @@ public class ConfigSecurity {
                     auth.requestMatchers("/verCarrinho").hasRole("USER");
                     auth.requestMatchers("/finalizarCompras").hasRole("USER");
                     auth.requestMatchers("/index").permitAll();
-                    auth.anyRequest().permitAll();
+                    auth.anyRequest().authenticated();
                 })
                 .formLogin( login -> login.loginPage("/login").permitAll())
                 //.defaultSuccessUrl("/", true)
                 //.and()
                 .logout( logout -> logout.logoutUrl("/logout"))
                 //.and()
-                .build();
+                .build();*/
                 
     }
 
