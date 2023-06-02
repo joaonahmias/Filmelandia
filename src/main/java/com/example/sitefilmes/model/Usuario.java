@@ -25,6 +25,14 @@ public class Usuario implements UserDetails{
     String senha;
     Boolean isAdmin;
 
+    
+    public Usuario(String nome, String username, String senha, Boolean isAdmin) {
+        this.nome = nome;
+        this.username = username;
+        this.senha = senha;
+        this.isAdmin = isAdmin;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.isAdmin){

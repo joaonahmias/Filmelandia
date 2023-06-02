@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
+    <style>
+        .custom-file-label::after {
+          content: none !important;
+        }
+      </style>
+</head>
+<body>
+
+    <section th:fragment="sectionEditar">
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-6 mb-5" th:object="${filme}">
+    
+                        <div class="card h-100 text-center">
+                            <div class="card-body">
+                                <input type="hidden" th:field="*{id}" />
+                                <input type="hidden" name="acao" th:value="${acao}" />
+                                <!-- Título -->
+                                <div class="form-group">
+                                    <label for="titulo"><strong>Título:</strong></label>
+                                    <input type="text" id="titulo" th:field="*{titulo}" class="form-control" />
+                                    <p class="text-danger" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></p>
+                                </div>
+                                <!-- Ano de Lançamento -->
+                                <div class="form-group">
+                                    <label for="anoLancamento"><strong>Ano:</strong></label>
+                                    <input type="text" id="anoLancamento" th:field="*{anoLancamento}" class="form-control" />
+                                    <p class="text-danger" th:if="${#fields.hasErrors('anoLancamento')}" th:errors="*{anoLancamento}"></p>
+                                </div>
+                                <!-- Gênero -->
+                                <div class="form-group">
+                                    <label for="genero"><strong>Gênero:</strong></label>
+                                    <input type="text" id="genero" th:field="*{genero}" class="form-control" />
+                                    <p class="text-danger" th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"></p>
+                                </div>
+                                <!-- Direção -->
+                                <div class="form-group">
+                                    <label for="direcao"><strong>Direção:</strong></label>
+                                    <input type="text" id="direcao" th:field="*{direcao}" class="form-control" />
+                                    <p class="text-danger" th:if="${#fields.hasErrors('direcao')}" th:errors="*{direcao}"></p>
+                                </div>
+                                <!-- Descrição -->
+                                <div class="form-group">
+                                    <label for="descricao"><strong>Descrição</strong></label>
+                                    <input type="text" id="" th:field="*{descricao}" class="form-control" />
+                                    <p class="text-danger" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></p>
+                                </div>
+                                <!-- Preço -->
+                                <div class="form-group">
+                                    <label for="preco"><strong>Preço</strong></label>
+                                    <input type="text" id="preco" th:field="*{preco}" class="form-control" />
+                                    <p class="text-danger" th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}"></p>
+                                </div>
+                                <!-- Imagem -->
+                                <div class="form-group">
+                                    <label for="imagem"><strong>Imagem</strong></label>
+                                    <div class="custom-file">
+                                        <input type="file" id="imagem" name="file" class="custom-file-input" />
+                                        <label class="custom-file-label" for="imagem"></label>
+                                        <input type="hidden" th:field="*{imgUri}"> <br />
+                                    </div>
+                                    <p class="text-danger mt-2" th:if="${#fields.hasErrors('imgUri')}" th:errors="*{imgUri}"></p>
+                                </div>
+                                <button class="btn btn-primary" type="submit">Salvar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+    
+ <nav th:fragment="NavigationEditar" class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="#!">Editar Filmes</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="/index">Inicio</a></li>            
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<header th:fragment="headerEditar">
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Página de Edição</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Editando filmes</p>
+            </div>
+        </div>
+    </header>
+</header>
+
+<section th:fragment="sectionCadastrar">
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row justify-content-center">
+                <div class="col-6 mb-5" th:object="${filme}">
+
+                    <div class="card h-100 text-center">
+                        <div class="card-body">
+                            <input type="hidden" name="acao" th:value="${acao}" />
+                            <!-- Título -->
+                            <div class="form-group">
+                                <label for="titulo"><strong>Título:</strong></label>
+                                <input type="text" id="titulo" th:field="*{titulo}" class="form-control" />
+                                <p class="text-danger" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></p>
+                            </div>
+                            <!-- Ano de Lançamento -->
+                            <div class="form-group">
+                                <label for="anoLancamento"><strong>Ano:</strong></label>
+                                <input type="text" id="anoLancamento" th:field="*{anoLancamento}" class="form-control" />
+                                <p class="text-danger" th:if="${#fields.hasErrors('anoLancamento')}" th:errors="*{anoLancamento}"></p>
+                            </div>
+                            <!-- Gênero -->
+                            <div class="form-group">
+                                <label for="genero"><strong>Gênero:</strong></label>
+                                <input type="text" id="genero" th:field="*{genero}" class="form-control" />
+                                <p class="text-danger" th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"></p>
+                            </div>
+                            <!-- Direção -->
+                            <div class="form-group">
+                                <label for="direcao"><strong>Direção:</strong></label>
+                                <input type="text" id="direcao" th:field="*{direcao}" class="form-control" />
+                                <p class="text-danger" th:if="${#fields.hasErrors('direcao')}" th:errors="*{direcao}"></p>
+                            </div>
+                            <!-- Descrição -->
+                            <div class="form-group">
+                                <label for="descricao"><strong>Descrição</strong></label>
+                                <input type="text" id="" th:field="*{descricao}" class="form-control" />
+                                <p class="text-danger" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></p>
+                            </div>
+                            <!-- Preço -->
+                            <div class="form-group">
+                                <label for="preco"><strong>Preço</strong></label>
+                                <input type="text" id="preco" th:field="*{preco}" class="form-control" />
+                                <p class="text-danger" th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}"></p>
+                            </div>
+                            <!-- Imagem -->
+                            <div class="form-group">
+                                <label for="imagem"><strong>Imagem</strong></label>
+                                <div class="custom-file">
+                                    <input type="file" id="imagem" name="file" class="custom-file-input" />
+                                    <label class="custom-file-label" for="imagem"></label>
+                                </div>
+                                <p class="text-danger mt-2" th:if="${#fields.hasErrors('imgUri')}" th:errors="*{imgUri}"></p>
+                            </div>
+                            <button class="btn btn-primary" type="submit">Salvar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+<nav th:fragment="NavigationAdmin" class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+          <a class="navbar-brand" th:href="@{'admin'}">Filmelândia</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+              <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{'admin'}">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+            </ul>
+          </div>
+        </div>
+</nav>
+
+<nav th:fragment="NavigationUsuario" class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+      <a class="navbar-brand" th:href="@{'index'}">Filmelândia</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+          <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{'index'}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+        </ul>
+      </div>
+    </div>
+</nav>
+
+
+
+<header th:fragment="headerCadastrar">
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Página de Cadastrar</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Cadastrar filmes</p>
+            </div>
+        </div>
+    </header>
+</header>
+
+<footer  th:fragment="footer" class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">&copy; nahmias&belo Website 2023</p></div>
+</footer>
+
+</body>
+</html>
+

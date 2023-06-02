@@ -9,7 +9,6 @@
 <body>
     <h1>Cadastro de Usuario</h1>
     <form method="post" th:action="@{/doSalvarUsuario}" th:object="${usuario}">
-
         Nome: <input type="text" th:field="*{nome}"><br />
         Username: <input type="text" th:field="*{username}"><br />
         Senha: <input type="password" th:field="*{senha}"> <br />

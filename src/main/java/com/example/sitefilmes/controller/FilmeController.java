@@ -44,7 +44,7 @@ public class FilmeController {
             filme.setImgUri(caminhoImagem);
         }
         model.addAttribute("filmes", filmes);
-        return "admin";
+        return "adminFormatado";
     }
 
     @GetMapping(value = {"/","/index", "/index.html"})
@@ -153,7 +153,7 @@ public class FilmeController {
 
 
     @GetMapping("/adicionarCarrinho/{id}")
-    public String adicionarCarrinho(@PathVariable(name = "id") Integer id, HttpServletRequest request, Model model){
+    public String adicionarCarrinho(@PathVariable(name = "id") Integer id, HttpServletRequest request, Model model, RedirectAttributes x){
         //procurando a sessao
         HttpSession sessao = request.getSession(true);
         ArrayList<Filme> carrinho = (ArrayList<Filme>) sessao.getAttribute("carrinho");
@@ -168,7 +168,7 @@ public class FilmeController {
             Filme filmeEncontrado = filme.get();
             carrinho.add(filmeEncontrado);
         }
-
+        x.addFlashAttribute("mensagem", "Filme adicionado ao Carrinho");
         return "redirect:/index";
 
     }
@@ -198,7 +198,7 @@ public class FilmeController {
     }
 
     @GetMapping("/removerCarrinho/{id}")
-    public String removerCarrinho(@PathVariable(name = "id") Integer id, HttpServletRequest request, Model model) {
+    public String removerCarrinho(@PathVariable(name = "id") Integer id, HttpServletRequest request, Model model,RedirectAttributes x) {
     // Procurando a sessão
     HttpSession sessao = request.getSession();
     ArrayList<Filme> carrinho = (ArrayList<Filme>) sessao.getAttribute("carrinho");
@@ -209,15 +209,13 @@ public class FilmeController {
         if (filme.isPresent()) {
             // Removendo o filme do carrinho
             carrinho.remove(filme.get());
-            model.addAttribute("mensagem", "Filme removido do carrinho com sucesso.");
-        } else {
-            model.addAttribute("mensagem", "Filme não encontrado no carrinho.");
-        }
+            x.addFlashAttribute("mensagem", "Item removido do carrinho");
+        } 
     } else {
-        model.addAttribute("mensagem", "Carrinho vazio.");
+        x.addFlashAttribute("mensagem", "Carrinho vazio.");
     }
 
-    return "redirect:/index";
+    return "redirect:/verCarrinho";
 }
 
     

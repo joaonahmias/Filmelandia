@@ -1,52 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
+    <title>Cadastrar Filme</title>
+    <div th:replace="~{/fragments/commons :: head}"></div>
 </head>
 <body>
-    <h1>Cadastro de Filmes</h1>
-    <form method = "post" th:action = "@{/doSalvar}" th:object="${filme}" enctype="multipart/form-data" >
-        
-        <input type="hidden" name="acao" th:value="${acao}" />
-
-        Título: <input type="text" th:field="*{titulo}" required>
-        <p th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></p>
-        <br />
-    
-        Ano: <input type="text" th:field="*{anoLancamento}"required>
-        <br />
-    
-        Gênero: <input type="text" th:field="*{genero}">
-        <p th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"required></p>
-        <br />
-    
-        Direção: <input type="text" th:field="*{direcao}">
-        <p th:if="${#fields.hasErrors('direcao')}" th:errors="*{direcao}"required></p>
-        
-        <br />
-
-       Elenco: <input type="text" th:field="*{elenco}">
-        <br />
-
-       Descrição: <input type="text" th:field="*{descricao}"required>
-       <p th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></p>
-        <br />
-        
-        
-       Preço: <input type="text" th:field="*{preco}" required>
-       <p th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}"></p>
-
-       <br />
-
-        Imagem: <input type="file" name = "file" required>
-        <p th:if="${#fields.hasErrors('imgUri')}" th:errors="*{imgUri}"></p>
-        <br />
-
-
-        <button type="submit">Cadastrar</button>
+    <div th:replace="~{/fragments/commons :: NavigationAdmin}"></div>
+    <div th:replace="~{/fragments/commons :: headerCadastrar}"></div>
+    <form method="post" th:action="@{/doSalvar}" th:object="${filme}" enctype="multipart/form-data">
+        <div th:replace="~{/fragments/commons :: sectionCadastrar}"></div>
     </form>
+    <footer>
+        <div th:replace="~{/fragments/commons :: footer}"></div>
+    </footer>
 </body>
 </html>
